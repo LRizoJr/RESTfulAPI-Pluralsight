@@ -1,0 +1,11 @@
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.deps.json
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.runtimeconfig.json
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.runtimeconfig.dev.json
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.dll
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.pdb
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.csprojAssemblyReference.cache
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.csproj.CoreCompileInputs.cache
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.AssemblyInfoInputs.cache
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.AssemblyInfo.cs
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.dll
+C:\Luis\PluralsightProjects\DotNetCoreRestfulAPI\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.pdb
