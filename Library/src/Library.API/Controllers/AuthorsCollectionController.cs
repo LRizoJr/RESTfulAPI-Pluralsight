@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Library.API.Entities;
+using Library.API.Helpers;
 using Library.API.Models;
 using Library.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -39,13 +40,29 @@ namespace Library.API.Controllers
                 throw new Exception("Creating an author collection failed on save");
             }
 
-            return Ok();
+            var authorsToReturn = Mapper.Map<IEnumerable<AuthorDto>>(authorEntities);
+
+            var idsAsString = string.Join(",", authorEntities.Select(x => x.Id));
+
+            return CreatedAtRoute("GetAuthorsCollection", new { ids = idsAsString}, authorsToReturn); 
         }
 
-        [HttpGet("({ids})")]
-        public IActionResult GetAuthorsCollection(IEnumerable<Guid> ids)
+        [HttpGet("({ids})", Name ="GetAuthorsCollection")]
+        public IActionResult GetAuthorsCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
         {
+            if(ids == null)
+            {
+                return BadRequest();
+            }
 
+            var authorEntities = _libraryRepository.GetAuthors(ids);
+            if(authorEntities.Count() != ids.Count())
+            {
+                return NotFound();
+            }
+
+            var authorsToReturn = Mapper.Map<IEnumerable<AuthorDto>>(authorEntities);
+            return Ok(authorsToReturn);
         }
     }
 }
