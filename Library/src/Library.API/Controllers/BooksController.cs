@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Library.API.Models;
+using Library.API.Entities;
 
 namespace Library.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace Library.API.Controllers
             return Ok(booksForAuthor);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetBookForAuthor")]
         public IActionResult GetBookForAuthor(Guid authorId, Guid id)
         {
             if (!_libraryRepository.AuthorExists(authorId))
@@ -49,6 +50,31 @@ namespace Library.API.Controllers
 
             var bookForAuthor = Mapper.Map<BookDto>(bookForAuthorFromRepo);
             return Ok(bookForAuthor);
+        }
+
+        [HttpPost()]
+        public IActionResult CreateBookForAuthor(Guid authorId, [FromBody] BookForCreationDto book)
+        {
+            if(!_libraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            if(book == null)
+            {
+                return BadRequest();
+            }
+
+            var bookEntity = Mapper.Map<Book>(book);
+            _libraryRepository.AddBookForAuthor(authorId, bookEntity);
+
+            if(!_libraryRepository.Save())
+            {
+                throw new Exception("Creating book for author failed on save");
+            }
+
+            var bookToReturn = Mapper.Map<BookDto>(bookEntity);
+            return CreatedAtRoute("GetBookForAuthor", new { authorId = authorId, id = bookEntity.Id }, bookToReturn);
         }
     }
 }

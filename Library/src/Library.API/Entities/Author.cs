@@ -24,7 +24,6 @@ namespace Library.API.Entities
         [MaxLength(50)]
         public string Genre { get; set; }
 
-        public ICollection<Book> Books { get; set; }
-            = new List<Book>();
+        public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }
