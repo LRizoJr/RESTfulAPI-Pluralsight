@@ -19,3 +19,14 @@ C:\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Li
 C:\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.AssemblyInfo.cs
 C:\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.dll
 C:\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.pdb
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.deps.json
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.runtimeconfig.json
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.runtimeconfig.dev.json
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.dll
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\bin\Debug\netcoreapp2.0\Library.API.pdb
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.csprojAssemblyReference.cache
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.csproj.CoreCompileInputs.cache
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.AssemblyInfoInputs.cache
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.AssemblyInfo.cs
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.dll
+C:\Luis\git\RESTfulAPI-Pluralsight\Library\src\Library.API\obj\Debug\netcoreapp2.0\Library.API.pdb
