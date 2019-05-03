@@ -8,6 +8,7 @@ using Library.API.Models;
 using Library.API.Helpers;
 using AutoMapper;
 using Library.API.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Library.API.Controllers
 {    
@@ -61,6 +62,18 @@ namespace Library.API.Controllers
             }
             var authorToReturn = Mapper.Map<AuthorDto>(authorEntity);
             return CreatedAtRoute("GetAuthor", new { id = authorEntity.Id }, authorToReturn);
+        }
+
+        // Need this to adhere to http standard of returning 404 for non-existing author and 409 (conflict) for existing author since a post with a guid parameter is invalid
+        [HttpPost("{id}")]
+        public IActionResult BlockAuthorCreationByGuid(Guid id)        
+        {
+            if(_libraryRepository.AuthorExists(id))
+            {
+                return new StatusCodeResult(StatusCodes.Status409Conflict);
+            }
+
+            return NotFound();            
         }
     }
 }
