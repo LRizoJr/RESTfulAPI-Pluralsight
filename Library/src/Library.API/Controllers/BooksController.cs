@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Library.API.Models;
 using Library.API.Entities;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Library.API.Controllers
 {
@@ -80,22 +81,109 @@ namespace Library.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteBookForAuthor(Guid authorId, Guid id)
         {
-            if(!_libraryRepository.AuthorExists(authorId))
+            if (!_libraryRepository.AuthorExists(authorId))
             {
                 return NotFound();
             }
 
             var bookEntity = _libraryRepository.GetBookForAuthor(authorId, id);
-            if(bookEntity == null)
+            if (bookEntity == null)
             {
                 return NotFound();
             }
 
             _libraryRepository.DeleteBook(bookEntity);
-            if(!_libraryRepository.Save())
+            if (!_libraryRepository.Save())
             {
                 throw new Exception($"Deleting book {id} for author {authorId} failed on save.");
             }
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBookForAuthor(Guid authorId, Guid id, [FromBody] BookForUpdateDto book)
+        {
+            if(book == null)
+            {
+                return BadRequest();
+            }
+
+            if (!_libraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            var bookEntity = _libraryRepository.GetBookForAuthor(authorId, id);
+            if (bookEntity == null)
+            {
+                var bookToAdd = Mapper.Map<Book>(book);
+                bookToAdd.Id = id;
+
+                _libraryRepository.AddBookForAuthor(authorId, bookToAdd);
+                if(!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting book {id} for author {authorId} failed on save.");
+                }
+
+                var bookToReturn = Mapper.Map<BookDto>(bookToAdd);
+                return CreatedAtRoute("GetBookForAuthor", new { authorId = authorId, id = bookToReturn.Id }, bookToReturn);
+            }
+
+            Mapper.Map(book, bookEntity);
+            _libraryRepository.UpdateBookForAuthor(bookEntity);
+            if(!_libraryRepository.Save())
+            {
+                throw new Exception($"Updating book id {id} for author {authorId} failed on save.");
+            }
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PartiallyUpdateBookForAuthor(Guid authorId, Guid id, [FromBody] JsonPatchDocument<BookForUpdateDto> patchDoc)
+        {
+            if(patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            if (!_libraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            var bookEntity = _libraryRepository.GetBookForAuthor(authorId, id);
+            if (bookEntity == null)
+            {
+                // Upsert
+                var bookDto = new BookForUpdateDto();
+                patchDoc.ApplyTo(bookDto);
+
+                var bookToAdd = Mapper.Map<Book>(bookDto);
+                bookToAdd.Id = id;
+
+                _libraryRepository.AddBookForAuthor(authorId, bookToAdd);
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting book id {id} for author {authorId} failed on save.");
+                }
+
+                var bookToReturn = Mapper.Map<BookDto>(bookToAdd);
+                return CreatedAtRoute("GetBookForAuthor", new { authorId = authorId, id = id }, bookToReturn);
+            }
+
+            var bookToPatch = Mapper.Map<BookForUpdateDto>(bookEntity);
+            patchDoc.ApplyTo(bookToPatch);
+
+            // TODO - Add validation
+
+            Mapper.Map(bookToPatch, bookEntity);
+            _libraryRepository.UpdateBookForAuthor(bookEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Updating book id {id} for author {authorId} failed on save.");
+            }
+
             return NoContent();
         }
     }
