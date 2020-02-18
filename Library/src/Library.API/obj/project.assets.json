@@ -13694,10 +13694,9 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://artifactory.mia.ucloud.int/artifactory/api/nuget/nuget-local": {},
+        "C:\\git\\echocustoms\\NugetPackages": {},
         "https://api.nuget.org/v3/index.json": {},
-        "https://artifactory.mia.ulti.io/artifactory/api/nuget/cat-tools-nuget-dev": {},
-        "https://artifactory.mia.ulti.io/artifactory/api/nuget/nuget": {}
+        "https://artifactory.mia.ulti.io/artifactory/api/nuget/cat-tools-nuget-dev": {}
       },
       "frameworks": {
         "netcoreapp2.0": {

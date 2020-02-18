@@ -8,6 +8,7 @@ using AutoMapper;
 using Library.API.Models;
 using Library.API.Entities;
 using Microsoft.AspNetCore.JsonPatch;
+using Library.API.Helpers;
 
 namespace Library.API.Controllers
 {
@@ -66,6 +67,19 @@ namespace Library.API.Controllers
                 return BadRequest();
             }
 
+            // Custom validation -- do this before checking for ModelState.IsValid
+            if(book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookForCreationDto),
+                    "The provided book description should be different from the book title.");
+            }
+
+            if(!ModelState.IsValid)
+            {
+                // 422 (Unprocessable Entity)
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
             var bookEntity = Mapper.Map<Book>(book);
             _libraryRepository.AddBookForAuthor(authorId, bookEntity);
 
@@ -106,6 +120,19 @@ namespace Library.API.Controllers
             if(book == null)
             {
                 return BadRequest();
+            }
+
+            // Custom validation -- do this before checking for ModelState.IsValid
+            if (book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookForUpdateDto),
+                    "The provided book description should be different from the book title.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // 422 (Unprocessable Entity)
+                return new UnprocessableEntityObjectResult(ModelState);
             }
 
             if (!_libraryRepository.AuthorExists(authorId))
